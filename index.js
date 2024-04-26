@@ -75,6 +75,13 @@ app.put('/updateCraft/:id', async(req, res) =>{
   res.send(result)
 })
 
+// delete craft from my craft list
+app.delete('/deleteMyCraft/:id', async(req, res) =>{
+  const id = req.params.id;
+  const query ={_id: new ObjectId(id)};
+  const result = await craftCollection.deleteOne(query)
+  res.send(result)
+})
     
     // Send a ping to confirm a successful connection
     // await client.db("admin").command({ ping: 1 });
