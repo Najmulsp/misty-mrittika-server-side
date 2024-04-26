@@ -30,10 +30,18 @@ async function run() {
     const craftCollection = client.db('craftdb').collection('craft');
 
     // create post
-  app.post('/crafts', async(req, res) =>{
+  app.post('/addCrafts', async(req, res) =>{
     const newCraft =req.body;
     console.log(newCraft)
+    // send to mongodb
     const result = await craftCollection.insertOne(newCraft);
+    res.send(result)
+  })
+
+    // read of crud
+  app.get('/myCraftList/:id', async(req, res) =>{
+    const cursor = craftCollection.find();
+    const result = await cursor.toArray();
     res.send(result)
   })
 
