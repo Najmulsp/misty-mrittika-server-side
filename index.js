@@ -60,8 +60,7 @@ app.put('/updateCraft/:id', async(req, res) =>{
   console.log(id)
   const query = {_id: new ObjectId(id)};
   const data ={
-    $set:{
-     
+    $set:{    
       name:req.body.name,
       subcategory:req.body.subcategory,
       price:req.body.price,
@@ -85,11 +84,20 @@ app.delete('/deleteMyCraft/:id', async(req, res) =>{
 
      // get craft item for craft item section
      app.get('/crafts', async(req, res) =>{
-      const cursor = craftCollection.find();
+       const cursor = craftCollection.find();
+       const result = await cursor.toArray();
+       res.send(result)
+      })
+      
+      // get specific craft item for craft details page
+      app.get('/craftDetails/:id', async(req, res) =>{
+      const id = req.params.id;
+      const query = {_id: new ObjectId(id)};
+      const cursor = craftCollection.find(query)      
       const result = await cursor.toArray();
       res.send(result)
     })
-    
+  
     // Send a ping to confirm a successful connection
     // await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
