@@ -82,6 +82,13 @@ app.delete('/deleteMyCraft/:id', async(req, res) =>{
   const result = await craftCollection.deleteOne(query)
   res.send(result)
 })
+
+     // get craft item for craft item section
+     app.get('/crafts', async(req, res) =>{
+      const cursor = craftCollection.find();
+      const result = await cursor.toArray();
+      res.send(result)
+    })
     
     // Send a ping to confirm a successful connection
     // await client.db("admin").command({ ping: 1 });
