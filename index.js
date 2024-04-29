@@ -29,6 +29,10 @@ async function run() {
     await client.connect();
     const craftCollection = client.db('craftdb').collection('craft');
 
+    const subcategories = client.db('subcategorydb').collection('subcategries');
+
+    // const myCollection= client.db('manualDatadb').collection('manualData');
+
     // create post
   app.post('/addCrafts', async(req, res) =>{
     const newCraft =req.body;
@@ -98,6 +102,18 @@ app.delete('/deleteMyCraft/:id', async(req, res) =>{
       res.send(result)
     })
   
+
+      // get data from manual collection
+  app.get('/subcategories', async(req, res) =>{
+    
+    const cursor = subcategories.find();
+    const result = await cursor.toArray();
+    // console.log(result)
+    res.send(result)
+  })
+
+
+
     // Send a ping to confirm a successful connection
     // await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
