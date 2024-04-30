@@ -112,6 +112,14 @@ app.delete('/deleteMyCraft/:id', async(req, res) =>{
     res.send(result)
   })
 
+   // get specific subCategory for all category page
+   app.get('/allCategories/:id', async(req, res) =>{
+    const id = req.params.id;
+    const query = {_id: new ObjectId(id)};          
+    const result = await subcategories.findOne(query);
+    res.send(result)
+  })
+
 
 
     // Send a ping to confirm a successful connection
